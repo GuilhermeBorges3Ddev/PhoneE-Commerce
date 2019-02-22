@@ -9,15 +9,29 @@ const ProductContext = React.createContext();
 
 class ProductProvider extends Component {
     state ={
-        products: storeProducts,
+        products: [],
         detailProduct: detailProduct
+    };
+    /* setProducts() method is used to mount the component passing values by value and not to reference */
+    componentDidMount() {
+      this.setProducts();
     }
+    setProducts = () => {
+      let tempProducts = [];
+      storeProducts.forEach(item => {
+        const singleItem = {...item};
+        tempProducts = [...tempProducts, singleItem];
+      });
+      this.setState(() => {
+        return {products: tempProducts}
+      });
+    };
     handleDetail = () => {
         console.log('hello from detail');
-    }
+    };
     addToCart = () => {
         console.log('hello from add to cart');
-    }
+    };
     tester = () => {
         console.log('State products :', this.state.products[0].inCart);
         console.log('Data products :', storeProducts[0].inCart);
@@ -30,7 +44,7 @@ class ProductProvider extends Component {
           console.log('State products :', this.state.products[0].inCart);
           console.log('Data products :', storeProducts[0].inCart);
         })
-    }
+    };
     render() {
     return (
       <ProductContext.Provider value={{
