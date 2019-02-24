@@ -10,7 +10,8 @@ const ProductContext = React.createContext();
 class ProductProvider extends Component {
     state ={
         products: [],
-        detailProduct: detailProduct
+        detailProduct: detailProduct,
+        cart: []
     };
     /* setProducts() method is used to mount the component passing values by value and not to reference */
     componentDidMount() {
@@ -36,8 +37,21 @@ class ProductProvider extends Component {
         return {detailProduct:product}
       })
     };
-    addToCart = (id) => {
-        console.log(`hello from add to cart.id is ${id}`);
+    addToCart = id => {
+      let tempProducts = [...this.state.products];
+      const index = tempProducts.indexOf(this.getItem(id));
+      const product = tempProducts[index];
+      product.inCart = true;
+      product.count = 1;
+      const price = product.price;
+      product.total = price;
+      /* Changing the original states over the data.js */
+      this.setState( () => {
+         return { products: tempProducts, cart: [...this.state.cart, product] };
+      },
+      () => {
+        console.log(this.state);  
+      });
     };
     tester = () => {
         console.log('State products :', this.state.products[0].inCart);
