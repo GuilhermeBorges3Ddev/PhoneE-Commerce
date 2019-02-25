@@ -11,7 +11,9 @@ class ProductProvider extends Component {
     state ={
         products: [],
         detailProduct: detailProduct,
-        cart: []
+        cart: [],
+        modalOpen: false,
+        modalProduct: detailProduct
     };
     /* setProducts() method is used to mount the component passing values by value and not to reference */
     componentDidMount() {
@@ -35,7 +37,7 @@ class ProductProvider extends Component {
       const product = this.getItem(id);
       this.setState(() => {
         return {detailProduct:product}
-      })
+      });
     };
     addToCart = id => {
       let tempProducts = [...this.state.products];
@@ -51,6 +53,17 @@ class ProductProvider extends Component {
       },
       () => {
         console.log(this.state);  
+      });
+    };
+    openModal = id => {
+      const product =  this.getItem(id);
+      this.setState(()=>{
+        return {modalProduct: product, modalOpen: true};
+      });
+    }; 
+    closeModal = () => {
+      this.setState(() => {
+        return {modalOpen: false};
       });
     };
     tester = () => {
@@ -71,7 +84,9 @@ class ProductProvider extends Component {
       <ProductContext.Provider value={{
         ...this.state,
         handleDetail: this.handleDetail,
-        addToCart: this.addToCart
+        addToCart: this.addToCart,
+        openModal: this.openModal,
+        closeModal: this.closeModal
       }}>
         {/* <button onClick={this.tester}>test me</button> */}
         {this.props.children}
