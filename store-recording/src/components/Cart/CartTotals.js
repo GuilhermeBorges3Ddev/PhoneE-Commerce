@@ -7,7 +7,7 @@ export default function CartTotals({value}){
         <React.Fragment>
             <div className="container">
                 <div className="row">
-                    <div className="col-10 mt-2 ml-sm-5 ml-auto col-sm-8 text-capitalize text-right">
+                    <div className="col-10 mt-2 ml-sm-5 ml-md-auto col-sm-8 text-capitalize text-right">
                         <Link to="/">
                             <button 
                                 className="btn btn-outline-danger text-uppercase 
