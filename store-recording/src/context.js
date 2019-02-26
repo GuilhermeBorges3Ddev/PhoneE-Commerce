@@ -11,7 +11,7 @@ class ProductProvider extends Component {
     state ={
         products: [],
         detailProduct: detailProduct,
-        cart: storeProducts,
+        cart: [],
         modalOpen: false,
         modalProduct: detailProduct,
         cartSubTotal: 0,
@@ -69,19 +69,6 @@ class ProductProvider extends Component {
         return {modalOpen: false};
       });
     };
-    tester = () => {
-        console.log('State products :', this.state.products[0].inCart);
-        console.log('Data products :', storeProducts[0].inCart);
-
-        const tempProducts = [...this.state.products];
-        tempProducts[0].inCart = true
-        this.setState(() => {
-          return {products: tempProducts}
-        }, () => {
-          console.log('State products :', this.state.products[0].inCart);
-          console.log('Data products :', storeProducts[0].inCart);
-        })
-    };
     increment = (id) => {
       console.log('this is increment method');
     };
@@ -96,17 +83,19 @@ class ProductProvider extends Component {
     };
     render() {
     return (
-      <ProductContext.Provider value={{
-        ...this.state,
-        handleDetail: this.handleDetail,
-        addToCart: this.addToCart,
-        openModal: this.openModal,
-        closeModal: this.closeModal,
-        increment: this.increment,
-        decrement: this.decrement,
-        removeItem: this.removeItem,
-        clearCart: this.clearCart
-      }}>
+      <ProductContext.Provider 
+        value={{
+          ...this.state,
+          handleDetail: this.handleDetail,
+          addToCart: this.addToCart,
+          openModal: this.openModal,
+          closeModal: this.closeModal,
+          increment: this.increment,
+          decrement: this.decrement,
+          removeItem: this.removeItem,
+          clearCart: this.clearCart
+        }}
+      >
         {/* <button onClick={this.tester}>test me</button> */}
         {this.props.children}
       </ProductContext.Provider>
